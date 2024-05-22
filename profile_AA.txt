@@ -1,0 +1,89 @@
+Timer unit: 1e-07 s
+Total time: 0.0001023 s
+Function: accumulate_gravitational_force at line 12
+Hits         Time  Per Hit   % Time  Line Contents
+==================================================
+                                         def accumulate_gravitational_force(self, other):
+    16        303.0     18.9     29.6          radius = ((other.x - self.x)**2 + (other.y - self.y)**2)**0.5
+    14        16        100.0      6.2      9.8          if other.x - self.x != 0:
+    15         8         66.0      8.2      6.5              fx = 6.67430e-11 * self.m * other.m / radius**3 * (other.x - self.x) 
+    16         8         37.0      4.6      3.6              self.net_fx += fx
+    17        16        249.0     15.6     24.3          if other.y - self.y != 0:
+    18         8        180.0     22.5     17.6              fy = 6.67430e-11 * self.m * other.m / radius**3 * (other.y - self.y) 
+    19         8         88.0     11.0      8.6              self.net_fy += fy
+
+Total time: 7.5e-06 s
+Function: velocity_euler at line 20
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    20                                               def velocity_euler(self, time_step):  # update velocity given force, mass and time_step
+    21         4         30.0      7.5     40.0          new_vx = self.vx + self.net_fx * time_step / self.m
+    22         4         20.0      5.0     26.7          new_vy = self.vy + self.net_fy * time_step / self.m
+    23         4         25.0      6.2     33.3          return new_vx, new_vy
+Total time: 5.7e-06 s
+Function: location_euler at line 24
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    24                                               def location_euler(self, time_step):  # update coordinate given current location, velocity and time_step
+    25         4         20.0      5.0     35.1          new_x = self.x + self.vx * time_step
+    26         4         16.0      4.0     28.1          new_y = self.y + self.vy * time_step
+    27         4         21.0      5.2     36.8          return new_x, new_y
+Total time: 6.91e-05 s
+Function: update_parameters at line 28
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    28                                               def update_parameters(self, time_step):
+    29         4        136.0     34.0     19.7          self.log_x.append(self.x)
+    30         4         17.0      4.2      2.5          self.log_y.append(self.y)
+    31         4        300.0     75.0     43.4          new_vx, new_vy = self.velocity_euler(time_step)
+    32         4        169.0     42.2     24.5          new_x, new_y = self.location_euler(time_step)
+    33         4         17.0      4.2      2.5          self.vx, self.vy = new_vx, new_vy
+    34         4         17.0      4.2      2.5          self.x, self.y = new_x, new_y
+    35         4         35.0      8.8      5.1          self.net_fx = self.net_fy = 0
+Total time: 0.0002882 s
+Function: main at line 46
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    46                                           def main(planet_list, epoch, time_step):
+    47                                           #def main():
+    48         2         27.0     13.5      0.9      for _ in range(epoch):#simulation loop, tqdm for progres bar
+    49         5         21.0      4.2      0.7          for self in planet_list:
+    50        20         89.0      4.5      3.1              for other in planet_list:
+    51        16       1855.0    115.9     64.4                  self.accumulate_gravitational_force(other)
+    52         5         21.0      4.2      0.7          for self in planet_list:
+    53         4        869.0    217.2     30.2              self.update_parameters(time_step)
+
+
+
+Line Contents,Hits,Time,Per Hit,% Time  
+Main,,,,,
+"for _ in range(epoch):",2,27.0,13.5,0.9
+"for self in planet_list:",5,21.0,4.2,0.7
+"for other in planet_list:",20,89.0,4.5,3.1
+"self.accumulate_gravitational_force(other)",16,1855.0,115.9,64.4
+"for self in planet_list:",5,21.0,4.2,0.7
+"self.update_parameters(time_step)",4,869.0,217.2,30.2
+ACCUMULATE_GRAVITATIONAL_FORCE,,,,,
+"radius = ((other.x - self.x)**2 + (other.y - self.y)**2)**0.5",12,16,303.0,18.9,29.6
+"if other.x - self.x != 0:",14,16,100.0,6.2,9.8
+"fx = 6.67430e-11 * self.m * other.m / radius**3 * (other.x - self.x)",15,8,66.0,8.2,6.5
+"self.net_fx += fx",16,8,37.0,4.6,3.6
+"if other.y - self.y != 0:",17,16,249.0,15.6,24.3
+"fy = 6.67430e-11 * self.m * other.m / radius**3 * (other.y - self.y)",18,8,180.0,22.5,17.6
+"self.net_fy += fy",19,8,88.0,11.0,8.6
+UPDATE_PARAMETERS,,,,,
+"self.log_x.append(self.x)",28,4,136.0,34.0,19.7
+"self.log_y.append(self.y)",29,4,17.0,4.2,2.5
+"new_vx, new_vy = self.velocity_euler(time_step)",30,4,300.0,75.0,43.4
+"new_x, new_y = self.location_euler(time_step)",31,4,169.0,42.2,24.5
+"self.vx, self.vy = new_vx, new_vy",32,4,17.0,4.2,2.5
+"self.x, self.y = new_x, new_y",33,4,17.0,4.2,2.5
+"self.net_fx = self.net_fy = 0",34,4,35.0,8.8,5.1
+VELOCITY_EULER,,,,,
+"new_vx = self.vx + self.net_fx * time_step / self.m",20,4,30.0,7.5,40.0
+"new_vy = self.vy + self.net_fy * time_step / self.m",21,4,20.0,5.0,26.7
+"return new_vx, new_vy",22,4,25.0,6.2,33.3
+LOCATION_EULER,,,,,
+"new_x = self.x + self.vx * time_step",24,4,20.0,5.0,35.1
+"new_y = self.y + self.vy * time_step",25,4,16.0,4.0,28.1
+"return new_x, new_y",26,4,21.0,5.2,36.8
