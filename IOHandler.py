@@ -1,5 +1,4 @@
 import csv #for reading csv files >>>REPLACE WITH PANDAS<<<
-import pandas as pd #for deleting results column from the csv
 import os #for getting csv files from this script's directory
 
 class IOHandler:
