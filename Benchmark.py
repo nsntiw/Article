@@ -21,8 +21,8 @@ def gen_input(i, prev_list):
 #triangular_list = [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 92, 105, 120, 136, 153, 171, 190, 210, 231, 253, 276, 300, 325, 351, 378, 406, 435, 465, 496, 528, 561, 595, 630, 666]
 #triangular_list = [435, 465, 496, 528, 561, 595]
 #triangular_list = [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 92, 105, 120, 136, 153, 171, 190, 210]
-#triangular_list = [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 92]
-triangular_list = [1, 3, 6, 10, 15, 21, 28]
+triangular_list = [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 92]
+#triangular_list = [1, 3, 6, 10, 15, 21, 28]
 numEntry, time_step, epoch = triangular_list[-1] + 1, 1, 10
 g = globals()
 input_lists = [[[100.0,10,0,0,0,0,0]]] #mass, vx, vy, x, y, net_fx, net_fy
@@ -113,7 +113,7 @@ dy[{}], temp[{}], temp_fx[{}], temp_fy[{}], net_fx[{}], net_fy[{}], temp_f[{}], 
 time_step)"""
 commands = [command0, command1, command2, command3, command4, command5, command7]
 #commands = [command6, command7]
-
+commands = [command0, command1, command2, command3,command4, command5]
 
 plt.figure(figsize=(10, 6))
 result_times = [[] for _ in range(len(commands))]
@@ -135,9 +135,9 @@ for result_time, label, color in zip(result_times, labels, colors):
     x_values = np.linspace(min(triangular_list), max(triangular_list), 100)  # Generate 100 x values between min and max
     y_values = p(x_values)  # Calculate corresponding y values using polynomial fit
     plt.plot(x_values, y_values, '-', color=color, label=label)
-    #if(label == "AA"):
-        #print(x_values)
-        #print(y_values)
+    if(label == "AA"):
+        print(x_values)
+        print(y_values)
 plt.xlabel('Number of bodies')
 plt.ylabel('Execution Time (seconds)')
 plt.title('Execution Time')

@@ -13,7 +13,6 @@ def main(m0, m1, vx0, vy0, x0, y0, vx1, vy1, x1, y1, order_1st_half, order_2nd_h
         temp = 6.67430e-11 * m0 * m1 / (dx**2 + dy**2)**1.5
         '''
         temp_fx, temp_fy = temp * dx, temp * dy
-        temp_fx, temp_fy = temp * dx, temp * dy
         print(net_fx)
         print(order_1st_half)
         print(temp_fx)
