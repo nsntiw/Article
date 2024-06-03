@@ -38,10 +38,11 @@ AA_planet_lists, AB_planet_permutation_lists, AC_planet_lists, AC_planet_permuta
 m0, m1, vx0, vx1, vy0, vy1, x0, x1, y0, y1, ts_over_m0, ts_over_m1, log, order_1st_half, order_2nd_half, dx, dy, temp, temp_fx, temp_fy, net_fx, net_fy, temp_f = [[] for _ in range(23)]
 
 #Initialise lists for CB
-m, vx, vy, x, y, ts_over_m, log1 = [[] for _ in range(7)]
+m, vx, vy, x, y, ts_over_m, log1, dx1, dy1, temp1, temp_fx1, temp_fy1, net_fx1, net_fy1 = [[] for _ in range(14)]
 
 #Fill lists with data
 for i in tqdm(range(numEntry)):
+    '''
     #AA
     AA_planet_lists.append([AA.Planet(e) for e in input_lists[-1]])
     #AB
@@ -58,6 +59,7 @@ for i in tqdm(range(numEntry)):
     #BB
     BB_planet_lists.append([e + [e[0]/time_step, []] for e in input_lists[-1]])
     BB_planet_permutation_lists.append(list(combinations(range(len(BB_planet_lists[-1])), 2)))
+    '''
     #CA
     #Append numpy arrays to each element
     index_permutations = list(combinations(range(len(input_lists[-1])), 2))
@@ -76,13 +78,13 @@ for i in tqdm(range(numEntry)):
     ts_over_m0.append(np.zeros(len(index_permutations), dtype=float))
     ts_over_m1.append(np.zeros(len(index_permutations), dtype=float))
     log.append(np.zeros(len(index_permutations) * epoch * 2, dtype=float))
-    dx.append(np.zeros(len(index_permutations), dtype=np.float32))
-    dy.append(np.zeros(len(index_permutations), dtype=np.float32))
-    temp.append(np.zeros(len(index_permutations), dtype=np.float32))
-    temp_fx.append(np.zeros(len(index_permutations), dtype=np.float32))
-    temp_fy.append(np.zeros(len(index_permutations), dtype=np.float32))
-    net_fx.append(np.zeros(len(input_lists[-1]), dtype=np.float32))
-    net_fy.append(np.zeros(len(input_lists[-1]), dtype=np.float32))
+    dx.append(np.zeros(len(index_permutations), dtype=float))
+    dy.append(np.zeros(len(index_permutations), dtype=float))
+    temp.append(np.zeros(len(index_permutations), dtype=float))
+    temp_fx.append(np.zeros(len(index_permutations), dtype=float))
+    temp_fy.append(np.zeros(len(index_permutations), dtype=float))
+    net_fx.append(np.zeros(len(input_lists[-1]), dtype=float))
+    net_fy.append(np.zeros(len(input_lists[-1]), dtype=float))
     #Fill the numpy arrays with data
     for j, e in enumerate(index_permutations):
         m0[-1][j], vx0[-1][j], vy0[-1][j], x0[-1][j], y0[-1][j], _, _ = [float(ee) for ee in input_lists[-1][e[0]]]
@@ -98,6 +100,13 @@ for i in tqdm(range(numEntry)):
     y.append(np.zeros(len(input_lists[-1]), dtype=np.float32))
     ts_over_m.append(np.zeros(len(input_lists[-1]), dtype=np.float32))
     log1.append(np.zeros(len(input_lists[-1]) * epoch * 2, dtype=np.float32))
+    dx1.append(np.zeros(len(index_permutations), dtype=np.float32))
+    dy1.append(np.zeros(len(index_permutations), dtype=np.float32))
+    temp1.append(np.zeros(len(index_permutations), dtype=np.float32))
+    temp_fx1.append(np.zeros(len(index_permutations), dtype=np.float32))
+    temp_fy1.append(np.zeros(len(index_permutations), dtype=np.float32))
+    net_fx1.append(np.zeros(len(input_lists[-1]), dtype=np.float32))
+    net_fy1.append(np.zeros(len(input_lists[-1]), dtype=np.float32))
     #Fill the numpy arrays with data
     for j, e in enumerate(input_lists[-1]):
         m[-1][j], vx[-1][j], vy[-1][j], x[-1][j], y[-1][j], _, _ = [np.float32(ee) for ee in e]
@@ -116,10 +125,10 @@ command6 = """CA.main(m0[{}], m1[{}], vx0[{}], vy0[{}], x0[{}], y0[{}], vx1[{}],
 y1[{}], order_1st_half[{}], order_2nd_half[{}], ts_over_m0[{}], ts_over_m1[{}], dx[{}], 
 dy[{}], temp[{}], temp_fx[{}], temp_fy[{}], net_fx[{}], net_fy[{}], log[{}], epoch, 
 time_step)"""
-command7 = """CB.main(m[{}], vx[{}], vy[{}], x[{}], y[{}], order_1st_half[{}], order_2nd_half[{}], ts_over_m[{}], dx[{}], 
-dy[{}], temp[{}], temp_fx[{}], temp_fy[{}], net_fx[{}], net_fy[{}], log1[{}], epoch, 
+command7 = """CB.main(m[{}], vx[{}], vy[{}], x[{}], y[{}], order_1st_half[{}], order_2nd_half[{}], ts_over_m[{}], dx1[{}], dy1[{}], temp1[{}], temp_fx1[{}], temp_fy1[{}], net_fx1[{}], net_fy1[{}], log1[{}], epoch, 
 time_step)"""
-#commands = [command0, command1, command2, command3, command4, command5]
+#commands = [command0, command1, command2, command3, command4, command5, command6]
+#commands = [command0, command5, command6, command7]
 commands = [command6, command7]
 #commands = [command0, command1, command2, command3,command4, command5]
 #commands = [command6]

@@ -7,7 +7,7 @@ import numpy as np
 
 #@jit(forceobj = True)
 def main(m, vx, vy, x, y, order_1st_half, order_2nd_half, 
-            time_step_over_m, dx, dy, temp, temp_fx, temp_fy, net_fx, 
+            ts_over_m, dx, dy, temp, temp_fx, temp_fy, net_fx, 
             net_fy, logs, epoch, time_step):
     for i in range(epoch):
         dx = x[order_2nd_half] - x[order_1st_half]
@@ -22,7 +22,9 @@ def main(m, vx, vy, x, y, order_1st_half, order_2nd_half,
         len_x = len(x)
         logs[i*len_x:(i+1)*len_x] = x
         logs[(i+1)*len_x:(i+2)*len_x] = y
-        x = vx * time_step
-        y = vy * time_step
-        vx += net_fx * time_step_over_m
-        vy += net_fy * time_step_over_m
+        x += vx * time_step
+        y += vy * time_step
+        vx += net_fx * ts_over_m
+        vy += net_fy * ts_over_m
+        net_fx = np.zeros(len_x)
+        net_fy = np.zeros(len_x)
