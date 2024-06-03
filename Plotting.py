@@ -71,7 +71,7 @@ def plotColorTest(list_planet):
 
     plt.show()#show plot
 
-def plotNew(logs):
+def plot_CA_Check(logs):
     plt.figure(figsize=(8, 8))#set plot size
     x0 = []
     x1 = []
@@ -94,6 +94,28 @@ def plotNew(logs):
     plt.plot(x1, y1, label=f'Planet: {1}')
     plt.plot(x2, y2, label=f'Planet: {2}')
     plt.plot(x3, y3, label=f'Planet: {3}')
+    plt.title('Planet Trajectories ', fontsize=10)#Plot title
+    plt.xlabel('x-axis', fontsize=10)#Axis naming
+    plt.ylabel('y-axis', fontsize=10)
+    plt.legend()#Place line labels on plot
+
+    i = 0
+    while os.path.isfile(f'plot {i}.png'):#infinite loop, check if there are already pngs saved, increment png number till no duplicates found, save file then evit loop
+        i += 1
+    plt.savefig(f'plot {i}.png')
+
+    plt.show()#show plot
+
+
+def plot_BB_Check(list_planet):
+    plt.figure(figsize=(8, 8))#set plot size
+    for index, element in enumerate(list_planet):#Loop over list of planets to get list of coordinates, list of coordinates added to plot
+        x = []
+        y = []
+        for i in range(0, len(element[8]), 2):
+            x.append(element[8][i])
+            y.append(element[8][i+1])
+        plt.plot(x, y, label=f'Planet: {index}')
     plt.title('Planet Trajectories ', fontsize=10)#Plot title
     plt.xlabel('x-axis', fontsize=10)#Axis naming
     plt.ylabel('y-axis', fontsize=10)

@@ -14,7 +14,7 @@ from math import sqrt
 
 #MAIN-----------------------------------------------
 #USER INPUT-----------------------------------------------
-'''
+
 PlanetsInstantaneous = []
 PlanetsResults = []
 
@@ -29,7 +29,7 @@ for i, planetList in enumerate(IOHandler1.readPlanetData()):
         PlanetsInstantaneous[i].append(float(p))#mass,vx,vy,x,y,fx,fy
     PlanetsResults.append([])
 time_step, epoch = int(IOHandler1.getUserInput("Enter the level of precision(recommended: 100)", "Enter an integer: ")), int(IOHandler1.getUserInput("Enter the numper of steps to simulate(recommended: 100000)", "Enter an integer: "))
-'''
+
 
 @njit(parallel=True)
 def test(unique_permutations):
@@ -100,16 +100,18 @@ def main(PlanetsInstantaneous, PlanetsResults, unique_permutations, epoch, time_
             PlanetsResults[i].extend((x,y))#marginally faster than two append
             #velocity euler
             #temp = time_step / m
-            resultvx, resultvy = vx + fx * m, vy + fy * m
+            resultvx, resultvy = vx + fx * time_step / m, vy + fy * time_step / m
             #location euler
             resultx, resulty = x + vx * time_step, y + vy * time_step
             #override planet list
             PlanetsInstantaneous[i] = [m, resultvx, resultvy, resultx, resulty, 0, 0]
+
 '''
-    print(f"it/s: {steps/(time()-start)}")
-    plot(PlanetsResults)
-    #plotColorTest(PlanetsResults)
-    #IOHandler1.writeResults(list_planet)
+print(f"it/s: {steps/(time()-start)}")
+plot(PlanetsResults)
+#plotColorTest(PlanetsResults)
+#IOHandler1.writeResults(list_planet)
+'''
 
 if __name__ == "__main__":
     #lp = LineProfiler()
@@ -117,7 +119,10 @@ if __name__ == "__main__":
     #lp_wrapper = lp(main)
     #lp_wrapper()
     #lp.print_stats()
+    unique_permutations = list(combinations(range(len(PlanetsInstantaneous)), 2))
+    print(PlanetsInstantaneous)
+    print(unique_permutations)
     start = time()
-    main()
+    main(PlanetsInstantaneous, PlanetsResults, unique_permutations, epoch, time_step)
     print(f"it/s: {epoch/(time()-start)}")
-'''
+    plot(PlanetsResults)

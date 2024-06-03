@@ -3,6 +3,7 @@
 from math import sqrt
 from time import time
 from numba import jit
+import numpy as np
 
 #@jit(forceobj = True)
 def main(m, vx, vy, x, y, order_1st_half, order_2nd_half, 
