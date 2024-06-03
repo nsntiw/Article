@@ -10,7 +10,7 @@ import AC #Reducing redundant calculations
 import AD #Class overhead?
 import BA #Classless, dicts
 import BB #Classless, lists
-import CA_Check #Vectorised, combinations order
+import CA #Vectorised, combinations order
 import CB #Vectorised, original order
 
 #Generate list of lists procedually, adding one element each
@@ -106,14 +106,14 @@ command4 = """BA.main(BA_planet_lists[{}], BA_planet_permutation_lists[{}], epoc
 command5 = """BB.main(BB_planet_lists[{}], BB_planet_permutation_lists[{}], epoch, time_step)"""
 command6 = """CA.main(m0[{}], m1[{}], vx0[{}], vy0[{}], x0[{}], y0[{}], vx1[{}], vy1[{}], x1[{}], 
 y1[{}], orderFirstHalf[{}], orderSecondHalf[{}], time_step_over_m0[{}], time_step_over_m1[{}], dx[{}], 
-dy[{}], temp[{}], temp_fx[{}], temp_fy[{}], net_fx[{}], net_fy[{}], temp_f[{}], logs[{}], epoch, 
+dy[{}], temp[{}], temp_fx[{}], temp_fy[{}], net_fx[{}], net_fy[{}], logs[{}], epoch, 
 time_step)"""
 command7 = """CB.main(m[{}], vx[{}], vy[{}], x[{}], y[{}], orderFirstHalf[{}], orderSecondHalf[{}], time_step_over_m[{}], dx[{}], 
-dy[{}], temp[{}], temp_fx[{}], temp_fy[{}], net_fx[{}], net_fy[{}], temp_f[{}], logs1[{}], epoch, 
+dy[{}], temp[{}], temp_fx[{}], temp_fy[{}], net_fx[{}], net_fy[{}], logs1[{}], epoch, 
 time_step)"""
 commands = [command0, command1, command2, command3, command4, command5, command7]
-#commands = [command6, command7]
-commands = [command0, command1, command2, command3,command4, command5]
+commands = [command6, command7]
+#commands = [command0, command1, command2, command3,command4, command5]
 #commands = [command6]
 
 plt.figure(figsize=(10, 6))

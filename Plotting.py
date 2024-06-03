@@ -90,10 +90,10 @@ def plot_CA_Check(logs):
         y1.append(logs[i + 5])
         y2.append(logs[i + 6])
         y3.append(logs[i + 7])
-    plt.plot(x0, y0, label=f'Planet: {0}')
-    plt.plot(x1, y1, label=f'Planet: {1}')
-    plt.plot(x2, y2, label=f'Planet: {2}')
-    plt.plot(x3, y3, label=f'Planet: {3}')
+    plt.plot(x0, y0, label='Planet: 0')
+    plt.plot(x1, y1, label='Planet: 1')
+    plt.plot(x2, y2, label='Planet: 2')
+    plt.plot(x3, y3, label='Planet: 3')
     plt.title('Planet Trajectories ', fontsize=10)#Plot title
     plt.xlabel('x-axis', fontsize=10)#Axis naming
     plt.ylabel('y-axis', fontsize=10)

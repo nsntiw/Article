@@ -7,25 +7,16 @@ import numpy as np
 
 def main(m0, m1, vx0, vy0, x0, y0, vx1, vy1, x1, y1, order_1st_half, order_2nd_half, 
          time_step_over_m0, time_step_over_m1, dx, dy, temp, temp_fx, temp_fy, net_fx, 
-         net_fy, temp_f, logs, epoch, time_step):
+         net_fy, logs, epoch, time_step):
     for i in range(epoch):
         dx = x1 - x0
         dy = y1 - y0
         temp = 6.67430e-11 * m0 * m1 / (dx**2 + dy**2)**1.5
-        '''
         temp_fx, temp_fy = temp * dx, temp * dy
-        print(net_fx)
-        print(order_1st_half)
-        print(temp_fx)
         np.add.at(net_fx, order_1st_half, temp_fx)
         np.subtract.at(net_fx, order_2nd_half, temp_fx)
         np.add.at(net_fy, order_1st_half, temp_fy)
         np.subtract.at(net_fy, order_2nd_half, temp_fy)
-        '''
-        temp_fx, temp_fy = temp * dx, temp * dy
-        temp_f = temp_fx + temp_fy
-        np.add.at(net_fx, order_1st_half, temp_f)
-        np.subtract.at(net_fy, order_2nd_half, temp_f)
         #---------------------------
         len_x0 = len(x0)
         logs[i*len_x0:(i+1)*len_x0] = x0

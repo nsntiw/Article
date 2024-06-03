@@ -11,7 +11,7 @@ for rowList in IOHandler1.readPlanetData():#read the selected rows from the csv 
 time_step, epoch = int(IOHandler1.getUserInput("Enter the level of precision(recommended: 100)", "Enter an integer: ")), int(IOHandler1.getUserInput("Enter the numper of steps to simulate(recommended: 100000)", "Enter an integer: "))
 '''
 def main(list_list, list_permutation_list, epoch, time_step):
-    for _ in range(epoch):#simulation loop, tqdm for progres bar
+    for i in range(epoch):#simulation loop, tqdm for progres bar
         for p0, p1 in list_permutation_list:
             m0, _, _, x0, y0, fx0, fy0, _, _ = a = list_list[p0]
             m1, _, _, x1, y1, fx1, fy1, _, _ = b = list_list[p1]
@@ -23,14 +23,20 @@ def main(list_list, list_permutation_list, epoch, time_step):
             b[5] = fx1 - fx
             a[6] = fy0 + fy
             b[6] = fy1 - fy
-        for i, p in enumerate(list_list):
+        
+        for ii, p in enumerate(list_list):
             m, vx, vy, x, y, net_fx, net_fy, time_step_over_m, history= p
             history.extend((x, y))
             new_vx = vx + net_fx * time_step_over_m
             new_vy = vy + net_fy * time_step_over_m
+            
             new_x = x + vx * time_step
             new_y = y + vy * time_step
-            list_list[i] = [m, new_vx, new_vy, new_x, new_y, 0, 0, time_step_over_m, history]
+            list_list[ii] = [m, new_vx, new_vy, new_x, new_y, 0, 0, time_step_over_m, history]
+        print(f'{i}+"BB"')
+        print([e[3] for e in list_list])
+        print([e[4] for e in list_list])
+        
 '''
 #if __name__ == "__main__":
     start = time()
