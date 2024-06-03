@@ -19,12 +19,13 @@ def main(m0, m1, vx0, vy0, x0, y0, vx1, vy1, x1, y1, order_1st_half, order_2nd_h
         np.subtract.at(net_fy, order_2nd_half, temp_fy)
         #---------------------------
         len_planet_list = len(planet_list)
-        start_idx = i * len_planet_list*2
-        log[start_idx:start_idx + 3] = x0[save_order0]
-        log[start_idx + 3] = x1[save_order1]
-        log[start_idx + 4:start_idx + 7] = y0[save_order0]
-        log[start_idx + 7] = y1[save_order1]
-
+        ii = i*2
+        log[ii*len_planet_list:ii*len_planet_list + 3] = x0[save_order0]
+        log[ii*len_planet_list + 3] = x1[save_order1]
+        log[ii*len_planet_list + 4:ii*len_planet_list + 7] = y0[save_order0]
+        log[ii*len_planet_list + 7] = y1[save_order1]
+        #print(f'CA + {i}')
+        #print(log[start_idx:start_idx + 8])
         x0 += vx0 * time_step
         y0 += vy0 * time_step
         x1 += vx1 * time_step

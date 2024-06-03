@@ -17,9 +17,10 @@ def main(m0, m1, vx0, vy0, x0, y0, vx1, vy1, x1, y1, order_1st_half, order_2nd_h
         np.add.at(net_fy, order_1st_half, temp_fy)
         np.subtract.at(net_fy, order_2nd_half, temp_fy)
         #---------------------------
-        len_x0 = len(x0)
-        logs[i*len_x0:(i+1)*len_x0] = x0
-        logs[(i+1)*len_x0:(i+2)*len_x0] = y0
+        len_x = len(x0) + len(x1)
+        ii = i*2
+        logs[ii*len_x:(ii+1)*ii*len_x] = (x0, x1)
+        logs[(ii+1)*len_x:(i+2)*len_x] = (y0, y1)
 
         x0 += vx0 * time_step
         y0 += vy0 * time_step
