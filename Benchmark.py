@@ -43,7 +43,7 @@ for i in tqdm(range(numEntry)):
     BA_planet_lists.append([{"m" : e[0], "vx" : e[1],"vy" : e[2],"x" : e[3],"y" : e[4],"net_fx" : e[5],"net_fy" : e[6], "time_step_over_m" : e[0]/time_step, "log_x" : [], "log_y" : []} for e in input_lists[-1]])
     BA_planet_permutation_lists.append(list(combinations((BA_planet_lists[-1]), 2)))
     BB_planet_lists.append([e + [e[0]/time_step, []] for e in input_lists[-1]])
-    BB_planet_permutation_lists.append(list(combinations((BB_planet_lists[-1]), 2)))
+    BB_planet_permutation_lists.append(list(combinations(range(len(BB_planet_lists[-1])), 2)))
     #CA
     index_permutations = list(combinations(range(len(input_lists[-1])), 2))
     
@@ -114,7 +114,7 @@ time_step)"""
 commands = [command0, command1, command2, command3, command4, command5, command7]
 #commands = [command6, command7]
 commands = [command0, command1, command2, command3,command4, command5]
-commands = [command6]
+#commands = [command6]
 
 plt.figure(figsize=(10, 6))
 result_times = [[] for _ in range(len(commands))]
