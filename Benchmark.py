@@ -10,7 +10,7 @@ import AC #Reducing redundant calculations
 import AD #Class overhead?
 import BA #Classless, dicts
 import BB #Classless, lists
-import CA #Vectorised, combinations order
+import CA_Check #Vectorised, combinations order
 import CB #Vectorised, original order
 
 #Generate list of lists procedually, adding one element each
@@ -46,7 +46,7 @@ for i in tqdm(range(numEntry)):
     BB_planet_permutation_lists.append(list(combinations((BB_planet_lists[-1]), 2)))
     #CA
     index_permutations = list(combinations(range(len(input_lists[-1])), 2))
-    '''
+    
     m0.append(np.zeros(len(index_permutations), dtype=float))
     m1.append(np.zeros(len(index_permutations), dtype=float))
     vx0.append(np.zeros(len(index_permutations), dtype=float))
@@ -57,14 +57,14 @@ for i in tqdm(range(numEntry)):
     x1.append(np.zeros(len(index_permutations), dtype=float))
     y0.append(np.zeros(len(index_permutations), dtype=float))
     y1.append(np.zeros(len(index_permutations), dtype=float))
-    '''
+    
     orderFirstHalf.append(np.zeros(len(index_permutations), dtype=int))
     orderSecondHalf.append(np.zeros(len(index_permutations), dtype=int))
-    '''
+    
     time_step_over_m0.append(np.zeros(len(index_permutations), dtype=float))
     time_step_over_m1.append(np.zeros(len(index_permutations), dtype=float))
     logs.append(np.zeros(len(index_permutations) * epoch * 2, dtype=float))
-    '''
+    
     dx.append(np.zeros(len(index_permutations), dtype=np.float32))
     dy.append(np.zeros(len(index_permutations), dtype=np.float32))
     temp.append(np.zeros(len(index_permutations), dtype=np.float32))
@@ -75,14 +75,14 @@ for i in tqdm(range(numEntry)):
     temp_f.append(np.zeros(len(index_permutations), dtype=np.float32))
     # Fill the arrays with data
     for j, e in enumerate(index_permutations):
-        '''
+
         m0[-1][j], vx0[-1][j], vy0[-1][j], x0[-1][j], y0[-1][j], _, _ = [float(ee) for ee in input_lists[-1][e[0]]]
         m1[-1][j], vx1[-1][j], vy1[-1][j], x1[-1][j], y1[-1][j], _, _ = [float(ee) for ee in input_lists[-1][e[1]]]
-        '''
+        
         orderFirstHalf[-1][j], orderSecondHalf[-1][j] = e
-    '''
+    
     time_step_over_m0[i], time_step_over_m1[i] = time_step / m0[i], time_step / m1[i]
-    '''
+    
     #CB
     m.append(np.zeros(len(input_lists[-1]), dtype=np.float32))
     vx.append(np.zeros(len(input_lists[-1]), dtype=np.float32))
@@ -114,6 +114,7 @@ time_step)"""
 commands = [command0, command1, command2, command3, command4, command5, command7]
 #commands = [command6, command7]
 commands = [command0, command1, command2, command3,command4, command5]
+commands = [command6]
 
 plt.figure(figsize=(10, 6))
 result_times = [[] for _ in range(len(commands))]
