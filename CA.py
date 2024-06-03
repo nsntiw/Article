@@ -9,8 +9,7 @@ def main(m0, m1, vx0, vy0, x0, y0, vx1, vy1, x1, y1, order_1st_half, order_2nd_h
          time_step_over_m0, time_step_over_m1, dx, dy, temp, temp_fx, temp_fy, net_fx, 
          net_fy, logs, epoch, time_step):
     for i in range(epoch):
-        dx = x1 - x0
-        dy = y1 - y0
+        dx, dy = x1 - x0, y1 - y0
         temp = 6.67430e-11 * m0 * m1 / (dx**2 + dy**2)**1.5
         temp_fx, temp_fy = temp * dx, temp * dy
         np.add.at(net_fx, order_1st_half, temp_fx)

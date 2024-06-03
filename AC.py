@@ -6,8 +6,8 @@ from time import time
 class Planet:
     def __init__(self, input_list, time_step):
         self.m, self.vx, self.vy, self.x, self.y, self.net_fx, self.net_fy = input_list
-        self.time_step_over_m = time_step / self.m
-        self.history_x, self.history_y = [], []
+        self.ts_over_m = time_step / self.m
+        self.log_x, self.log_y = [], []
     def accumulate_gravitational_force(self, other):
         dx = other.x - self.x
         dy = other.y - self.y
@@ -21,16 +21,16 @@ class Planet:
             self.net_fy += fy
             other.net_fy -= fy
     def velocity_euler(self):  # update velocity given force, mass and time_step
-        new_vx = self.vx + self.net_fx * self.time_step_over_m
-        new_vy = self.vy + self.net_fy * self.time_step_over_m
+        new_vx = self.vx + self.net_fx * self.ts_over_m
+        new_vy = self.vy + self.net_fy * self.ts_over_m
         return new_vx, new_vy
     def location_euler(self, time_step):  # update coordinate given current location, velocity and time_step
         new_x = self.x + self.vx * time_step
         new_y = self.y + self.vy * time_step
         return new_x, new_y
     def update_parameters(self, time_step):
-        self.history_x.append(self.x)
-        self.history_y.append(self.y)
+        self.log_x.append(self.x)
+        self.log_y.append(self.y)
         new_vx, new_vy = self.velocity_euler()
         new_x, new_y = self.location_euler(time_step)
         self.vx, self.vy = new_vx, new_vy

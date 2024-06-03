@@ -6,8 +6,8 @@ from time import time
 class Planet:
     def __init__(self, input_list, time_step):
         self.m, self.vx, self.vy, self.x, self.y, self.net_fx, self.net_fy = input_list
-        self.time_step_over_m = time_step / self.m
-        self.history_x, self.history_y = [], []
+        self.ts_over_m = time_step / self.m
+        self.log_x, self.log_y = [], []
     def accumulate_gravitational_force(self, other):
         m0, x0, y0 = self.m, self.x, self.y
         m1, x1, y1 = other.m, other.x, other.y
@@ -23,13 +23,10 @@ class Planet:
             self.net_fy += fy
             other.net_fy -= fy
     def update_parameters(self, time_step):
-        vx, vy = self.vx, self.vy
-        x, y = self.x, self.y
-        net_fx, net_fy = self.net_fx, self.net_fy
-        time_step_over_m = self.time_step_over_m
-        self.history_x.append(x)
-        self.history_y.append(y)
-        self.vx, self.vy = vx + net_fx * time_step_over_m, vy + net_fy * time_step_over_m
+        vx, vy, x, y, net_fx, net_fy, ts_over_m  = self.vx, self.vy, self.x, self.y, self.net_fx, self.net_fy, self.ts_over_m
+        self.log_x.append(x)
+        self.log_y.append(y)
+        self.vx, self.vy = vx + net_fx * ts_over_m, vy + net_fy * ts_over_m
         self.x, self.y = x + vx * time_step, y + vy * time_step
         self.net_fx = self.net_fy = 0
 

@@ -30,7 +30,7 @@ def main(dict_list, dict_permutation_list, epoch, time_step):
         vx, vy = self["vx"], self["vy"]
         x, y = self["x"], self["y"]
         net_fx, net_fy = self["net_fx"], self["net_fy"]
-        time_step_over_m = self["time_step_over_m"]
+        time_step_over_m = self["ts_over_m"]
         
         self["log_x"].append(x)
         self["log_y"].append(y)

@@ -6,7 +6,7 @@ from time import time
 class Planet:
     def __init__(self, input_list):
         self.m, self.vx, self.vy, self.x, self.y, self.net_fx, self.net_fy = input_list
-        self.history_x, self.history_y = [], []
+        self.log_x, self.log_y = [], []
     def accumulate_gravitational_force(self, other):
         radius = ((other.x - self.x)**2 + (other.y - self.y)**2)**0.5
         if other.x - self.x != 0:
@@ -26,8 +26,8 @@ class Planet:
         new_y = self.y + self.vy * time_step
         return new_x, new_y
     def update_parameters(self, time_step):
-        self.history_x.append(self.x)
-        self.history_y.append(self.y)
+        self.log_x.append(self.x)
+        self.log_y.append(self.y)
         new_vx, new_vy = self.velocity_euler(time_step)
         new_x, new_y = self.location_euler(time_step)
         self.vx, self.vy = new_vx, new_vy

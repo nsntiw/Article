@@ -25,17 +25,14 @@ def main(list_list, list_permutation_list, epoch, time_step):
             b[6] = fy1 - fy
         
         for ii, p in enumerate(list_list):
-            m, vx, vy, x, y, net_fx, net_fy, time_step_over_m, history= p
-            history.extend((x, y))
+            m, vx, vy, x, y, net_fx, net_fy, time_step_over_m, log = p
+            log.extend((x, y))
             new_vx = vx + net_fx * time_step_over_m
             new_vy = vy + net_fy * time_step_over_m
             
             new_x = x + vx * time_step
             new_y = y + vy * time_step
-            list_list[ii] = [m, new_vx, new_vy, new_x, new_y, 0, 0, time_step_over_m, history]
-        print(f'{i}+"BB"')
-        print([e[3] for e in list_list])
-        print([e[4] for e in list_list])
+            list_list[ii] = [m, new_vx, new_vy, new_x, new_y, 0, 0, time_step_over_m, log]
         
 '''
 #if __name__ == "__main__":
