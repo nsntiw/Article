@@ -38,8 +38,8 @@ AA_planet_lists, AB_planet_permutation_lists, AC_planet_lists, AC_planet_permuta
 m0, m1, vx0, vx1, vy0, vy1, x0, x1, y0, y1, ts_over_m0, ts_over_m1, log, order_1st_half, order_2nd_half, dx, dy, temp, temp_fx, temp_fy, net_fx, net_fy, temp_f = [[] for _ in range(23)]
 
 #Initialise lists for CB
-m, vx, vy, x, y, ts_over_m, log1, dx1, dy1, temp1, temp_fx1, temp_fy1, net_fx1, net_fy1 = [[] for _ in range(14)]
-
+m, vx, vy, x, y, ts_over_m, log1, dx1, dy1, temp1, temp_fx1, temp_fy1, net_fx1, net_fy1, order_1st_half1, order_2nd_half1 = [[] for _ in range(16)]
+len_x = []
 #Fill lists with data
 for i in tqdm(range(numEntry)):
     '''
@@ -107,12 +107,19 @@ for i in tqdm(range(numEntry)):
     temp_fy1.append(np.zeros(len(index_permutations), dtype=np.float32))
     net_fx1.append(np.zeros(len(input_lists[-1]), dtype=np.float32))
     net_fy1.append(np.zeros(len(input_lists[-1]), dtype=np.float32))
+    order_1st_half1.append(np.zeros(len(index_permutations), dtype=int))
+    order_2nd_half1.append(np.zeros(len(index_permutations), dtype=int))
     #Fill the numpy arrays with data
     for j, e in enumerate(input_lists[-1]):
         m[-1][j], vx[-1][j], vy[-1][j], x[-1][j], y[-1][j], _, _ = [np.float32(ee) for ee in e]
+    for j, e in enumerate(index_permutations):
+        order_1st_half1[-1][j], order_2nd_half1[-1][j] = e
     ts_over_m[i]= time_step / m[i]
+    len_x.append(len(x))
+
     #Recursively generate list of planets for each element
     input_lists.append(gen_input(i, input_lists))
+    
 
 #Define the command to time, which will run 10 times for each element in triangular_list
 command0 = """AA.main(AA_planet_lists[{}], epoch, time_step)"""
@@ -125,7 +132,7 @@ command6 = """CA.main(m0[{}], m1[{}], vx0[{}], vy0[{}], x0[{}], y0[{}], vx1[{}],
 y1[{}], order_1st_half[{}], order_2nd_half[{}], ts_over_m0[{}], ts_over_m1[{}], dx[{}], 
 dy[{}], temp[{}], temp_fx[{}], temp_fy[{}], net_fx[{}], net_fy[{}], log[{}], epoch, 
 time_step)"""
-command7 = """CB.main(m[{}], vx[{}], vy[{}], x[{}], y[{}], order_1st_half[{}], order_2nd_half[{}], ts_over_m[{}], dx1[{}], dy1[{}], temp1[{}], temp_fx1[{}], temp_fy1[{}], net_fx1[{}], net_fy1[{}], log1[{}], epoch, 
+command7 = """CB.main(m[{}], vx[{}], vy[{}], x[{}], y[{}], order_1st_half1[{}], order_2nd_half1[{}], ts_over_m[{}], dx1[{}], dy1[{}], temp1[{}], temp_fx1[{}], temp_fy1[{}], net_fx1[{}], net_fy1[{}], log1[{}], len_x[{}], epoch, 
 time_step)"""
 #commands = [command0, command1, command2, command3, command4, command5, command6]
 #commands = [command0, command5, command6, command7]
