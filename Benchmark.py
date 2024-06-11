@@ -42,7 +42,7 @@ m, vx, vy, x, y, ts_over_m, log1, dx1, dy1, temp1, temp_fx1, temp_fy1, net_fx1, 
 len_x = []
 #Fill lists with data
 for i in tqdm(range(numEntry)):
-    '''
+    
     #AA
     AA_planet_lists.append([AA.Planet(e) for e in input_lists[-1]])
     #AB
@@ -59,7 +59,7 @@ for i in tqdm(range(numEntry)):
     #BB
     BB_planet_lists.append([e + [e[0]/time_step, []] for e in input_lists[-1]])
     BB_planet_permutation_lists.append(list(combinations(range(len(BB_planet_lists[-1])), 2)))
-    '''
+    
     #CA
     #Append numpy arrays to each element
     index_permutations = list(combinations(range(len(input_lists[-1])), 2))
@@ -134,11 +134,8 @@ dy[{}], temp[{}], temp_fx[{}], temp_fy[{}], net_fx[{}], net_fy[{}], log[{}], epo
 time_step)"""
 command7 = """CB.main(m[{}], vx[{}], vy[{}], x[{}], y[{}], order_1st_half1[{}], order_2nd_half1[{}], ts_over_m[{}], dx1[{}], dy1[{}], temp1[{}], temp_fx1[{}], temp_fy1[{}], net_fx1[{}], net_fy1[{}], log1[{}], len_x[{}], epoch, 
 time_step)"""
-#commands = [command0, command1, command2, command3, command4, command5, command6]
-#commands = [command0, command5, command6, command7]
-commands = [command6, command7]
-#commands = [command0, command1, command2, command3,command4, command5]
-#commands = [command6]
+commands = [command0, command1, command2, command5, command6, command7]
+#commands = [command6, command7]
 
 plt.figure(figsize=(10, 6))
 result_times = [[] for _ in range(len(commands))]
